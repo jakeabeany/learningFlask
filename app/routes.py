@@ -10,7 +10,7 @@ from werkzeug.urls import url_parse
 @app.route('/index')
 @login_required
 def index():
-    return render_template('index.html', title="A title")
+    return render_template('index.html', title="Homepage")
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -27,7 +27,7 @@ def login():
 
         # validate username and password, redirect to login if invalid
         if user is None or not user.check_password(form.password.data):
-            flash("Invalid username or password.")
+            flash("Invalid username or password.", "info")
             return redirect(url_for("login"))
 
         # valid credentials, login user

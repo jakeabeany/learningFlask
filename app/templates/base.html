@@ -1,33 +1,33 @@
-<html>
-    <head>
-      {% if title %}
-        <title>{{ title }} - Microblog</title>
-      {% else %}
-        <title>Welcome to Microblog</title>
-      {% endif %}
-    </head>
-    <body>
-        <!-- Nav bar -->
-        <div>
-            Microblog:
-            <a href="{{ url_for("index") }}">Home</a>
-            <a href="{{ url_for("login") }}">Log in</a>
-            <a href="{{ url_for("logout") }}">Log out</a>
+{% extends "bootstrap/base.html" %}
+
+
+{% block title %}
+  {% if title %}
+    {{ title }} - Microblog
+  {% else %}
+    Welcome to Microblog
+  {% endif %}
+{% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+
+{% block navbar %}
+    <!-- Nav bar -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url_for("index") }}">Home</a>
+                <a class="navbar-brand" href="{{ url_for("login") }}">Log in</a>
+                <a class="navbar-brand" href="{{ url_for("logout") }}">Log out</a>
+            </div>
         </div>
-        <hr>
+    </nav>
+{% endblock %}
 
-        <!-- Display flash messages -->
-        {%  with messages = get_flashed_messages() %}
-            {%  if messages %}
-                <ul>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {%  endfor %}
-                </ul>
-            {%  endif %}
-        {%  endwith %}
-
-        <!-- All page content extends to here -->
-        {% block pagecontent %}{% endblock %}
-    </body>
-</html>
+{% block content %}{% endblock %}
