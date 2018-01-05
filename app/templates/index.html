@@ -2,15 +2,24 @@
 
 {% block content %}
     <div class="container">
-        <h1>Hi, {{ current_user.username }}!</h1>
+        <!-- Display flash messages -->
+        {%  with messages = get_flashed_messages() %}
+            {%  if messages %}
+                {% for message in messages %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {%  endif %}
+        {%  endwith %}
 
-        {% for post in posts %}
-          <div>
-            <p>
-              {{ post.author.username }} says: <br />
-              {{ post.body }}
-            </p>
-          </div>
-        {% endfor %}
+        {% if current_user.is_authenticated %}
+            <h1>Welcome to Holtwood Leisure, {{ current_user.username }}!</h1>
+        {% else %}
+            <h1>Welcome to Holtwood Leisure!</h1>
+        {% endif %}
+
     </div>
 {% endblock %}

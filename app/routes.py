@@ -5,10 +5,9 @@ from app.forms import LoginForm, RegistrationForm
 from app.models import User
 from werkzeug.urls import url_parse
 
-
+#@login_required
 @app.route('/')
 @app.route('/index')
-@login_required
 def index():
     return render_template('index.html', title="Homepage")
 
@@ -72,3 +71,16 @@ def register():
         return redirect(url_for("login"))
 
     return render_template("register.html", title="Register", form=form)
+
+
+@app.route('/adminhome')
+def adminhome():
+    if not current_user.is_authenticated:
+        flash("You may not access this section")
+        return redirect(url_for("index"))
+
+    if not current_user.is_admin:
+        flash("You may not access this section")
+        return redirect(url_for("index"))
+
+    return render_template("adminhome.html", title="Admin Dashboard")

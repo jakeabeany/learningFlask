@@ -12,13 +12,14 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    is_admin = db.Column(db.Boolean, default=False)
 
     # not a database field - defines the link to Posts table
     posts = db.relationship("Post", backref="author", lazy="dynamic")
 
     # __repr__ is like toString
     def __repr__(self):
-        return "<User {}>".format(self.username)
+        return "<Username = {}, isAdmin = {}>".format(self.username, self.is_admin)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -26,6 +27,11 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def set_admin(self):
+        self.is_admin = True
+
+    def set_not_admin(self):
+        self.is_admin = False
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
