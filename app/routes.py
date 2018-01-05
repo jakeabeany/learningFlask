@@ -22,7 +22,7 @@ def login():
 
     if form.validate_on_submit():
         # get user from database
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter(User.username.ilike(form.username.data)).first()
 
         # validate username and password, redirect to login if invalid
         if user is None or not user.check_password(form.password.data):
@@ -49,7 +49,16 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for("login"))
+    # redirect users to appropriate page
+    next_page = request.args.get("next")
+
+    # validate next_page, set to index if invalid
+    # url_parse netloc check ensures next_page url is relative, so avoid
+    # malicious redirects
+    if not next_page or url_parse(next_page).netloc != "":
+        next_page = url_for("index")
+
+    return redirect(next_page)
 
 
 @app.route('/register', methods=["GET", "POST"])
@@ -84,3 +93,23 @@ def adminhome():
         return redirect(url_for("index"))
 
     return render_template("adminhome.html", title="Admin Dashboard")
+
+
+@app.route('/bookings')
+def bookings():
+    return render_template("bookings.html", title="Bookings")
+
+
+@app.route('/offers')
+def offers():
+    return render_template("offers.html", title="Offers")
+
+
+@app.route('/whatwedo')
+def whatwedo():
+    return render_template("whatwedo.html", title="What We Do")
+
+
+@app.route('/contact')
+def contact():
+    return render_template("contactus.html", title="Contact Us")

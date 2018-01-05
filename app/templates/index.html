@@ -3,8 +3,8 @@
 {% block content %}
     <div class="container">
         <!-- Display flash messages -->
-        {%  with messages = get_flashed_messages() %}
-            {%  if messages %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
                 {% for message in messages %}
                     <div class="row">
                         <div class="col-md-12">
@@ -12,14 +12,13 @@
                         </div>
                     </div>
                 {% endfor %}
-            {%  endif %}
-        {%  endwith %}
+            {% endif %}
+        {% endwith %}
 
         {% if current_user.is_authenticated %}
-            <h1>Welcome to Holtwood Leisure, {{ current_user.username }}!</h1>
+            <h1>Welcome to Holtwood Leisure, {{ current_user.username.title() }}!</h1>
         {% else %}
             <h1>Welcome to Holtwood Leisure!</h1>
         {% endif %}
-
     </div>
 {% endblock %}

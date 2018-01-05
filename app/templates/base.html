@@ -34,17 +34,48 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <!-- Left side of nav bar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for("index") }}">Home</a></li>
-                    <li><a href="{{ url_for("login") }}">Log in</a></li>
-                    <li><a href="{{ url_for("logout") }}">Log out</a></li>
-
+                    <li {% if request.path == url_for("index") %} class="active"{% endif %}>
+                        <a href="{{ url_for("index") }}">Home</a>
+                    </li>
+                    <li {% if request.path == url_for("bookings") %} class="active"{% endif %}>
+                        <a href="{{ url_for("bookings") }}">Bookings</a>
+                    </li>
+                    <li {% if request.path == url_for("offers") %} class="active"{% endif %}>
+                        <a href="{{ url_for("offers") }}">Offers</a>
+                    </li>
+                    <li {% if request.path == url_for("whatwedo") %} class="active"{% endif %}>
+                        <a href="{{ url_for("whatwedo") }}">What We Do</a>
+                    </li>
+                    <li {% if request.path == url_for("contact") %} class="active"{% endif %}>
+                        <a href="{{ url_for("contact") }}">Contact Us</a>
+                    </li>
                     {% if current_user.is_admin %}
-                        <li><a href="{{ url_for("adminhome") }}">Admin Home</a></li>
+                        <li {% if request.path == url_for("adminhome") %} class="active"{% endif %}>
+                            <a href="{{ url_for("adminhome") }}">Admin Home</a>
+                        </li>
                     {% endif %}
                 </ul>
+
+                <!-- Right side of nav bar -->
+                <ul class="nav navbar-nav navbar-right">
+                    {% if not current_user.is_authenticated %}
+                        <li {% if request.path == url_for("login") %} class="active"{% endif %}>
+                            <a {% if request.path == url_for("login") %} class="active"{% endif %}href="{{ url_for("login") }}">Log in</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ url_for("logout") }}?next={{ request.path }}">Log out</a>
+                        </li>
+                    {% endif %}
+                </ul>
+
+                {% if current_user.is_authenticated %}
+                    <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">{{ current_user.username.title() }}</a></p>
+                {% endif %}
             </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
+        </div><!-- /.container -->
     </nav>
 {% endblock %}
 
