@@ -33,6 +33,7 @@ class User(UserMixin, db.Model):
     def set_not_admin(self):
         self.is_admin = False
 
+
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
@@ -41,6 +42,46 @@ class Post(db.Model):
 
     def __repr__(self):
         return "<Post {}>".format(self.body)
+
+
+class Photo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    file_location = db.Column(db.String(50), unique=True, default="notfound.jpg")
+    pitch_id = db.Column(db.Integer, db.ForeignKey("pitch.id"))
+    main_caption = db.Column(db.String(200))
+    sub_caption = db.Column(db.String(500))
+
+    def set_main_caption(self, caption):
+        self.main_caption = caption
+
+    def set_sub_caption(self, subcaption):
+        self.sub_caption = subcaption
+
+    def __repr__(self):
+        return "<Photo {}>".format(self.file_location)
+
+
+class Pitch(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True)
+    size = db.Column(db.Float)
+    cost = db.Column(db.Float)
+    times_viewed = db.Column(db.Integer, default=0)
+
+    def __repr__(self):
+        return "<Pitch {}>".format(self.name)
+
+
+class CarouselPhoto(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    photo_id = db.Column(db.Integer, db.ForeignKey("photo.id"))
+
+    def __repr__(self):
+        return "<Photo {}>".format(self.photo_id)
+
+
+
+
 
 
 @login.user_loader

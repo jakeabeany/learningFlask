@@ -2,14 +2,22 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
-from app.models import User
+from app.models import User, CarouselPhoto, Photo
 from werkzeug.urls import url_parse
 
 #@login_required
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title="Homepage")
+    # get id's of photos to be displayed in carousel
+    carouselphotos = CarouselPhoto.query.all()
+
+    photos = []
+
+    for photo in carouselphotos:
+        photos.append(Photo.query.get(photo.photo_id))
+
+    return render_template('index.html', title="Homepage", photos=photos)
 
 
 @app.route('/login', methods=["GET", "POST"])
