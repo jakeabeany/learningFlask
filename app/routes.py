@@ -99,7 +99,13 @@ def adminhome():
         flash("You may not access this section", "alert-danger")
         return redirect(url_for("index"))
 
-    return render_template("adminhome.html", title="Admin Dashboard")
+    # get id's of photos currently in the carousel on the homepage
+    carouselphotos = CarouselPhoto.query.all()
+    photos = []
+    for photo in carouselphotos:
+        photos.append(Photo.query.get(photo.photo_id))
+
+    return render_template("adminhome.html", title="Admin Dashboard", photos=photos, numphotos=len(photos))
 
 
 @app.route('/bookings')

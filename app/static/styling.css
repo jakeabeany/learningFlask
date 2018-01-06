@@ -1,4 +1,9 @@
+.carousel-inner > .item > img {
+    margin: 0 auto;
+    width:100%;
+    height: 400px;
+}
+
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
     background-color: #ecf0f1;
 }
-

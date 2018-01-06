@@ -32,7 +32,15 @@
                             <h2 class="panel-title" style="text-align: center;">Manage Carousel Photos</h2>
                         </div>
                         <div class="panel-body">
-                            caoursel photos m8
+                            <p>There are currently <strong>{{ numphotos }}</strong> photos displayed in the carousel. They are:</p>
+                            <!-- Thumbnails of the photos in the carousel -->
+                            {% for photo in photos %}
+                                <div class="col-xs-6 col-md-3">
+                                    <a href="#" class="thumbnail">
+                                        <img src="{{ url_for('static', filename="images/" + photo.file_location) }}" alt="Campsite Image">
+                                    </a>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
