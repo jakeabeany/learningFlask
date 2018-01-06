@@ -3,27 +3,25 @@
 {%  block content %}
     <div class="container">
         <!-- Display flash messages -->
-        {%  with messages = get_flashed_messages() %}
-            {%  if messages %}
-                {% for message in messages %}
-                    <div class="row">
-                        <div class="col-md-12">
-                            {{ message }}
-                        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-dismissible {{ category }}">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>{{ message }}</strong>
                     </div>
                 {% endfor %}
-            {%  endif %}
-        {%  endwith %}
+            {% endif %}
+        {% endwith %}
 
         <h1>Sign in</h1>
 
         <!-- Login form -->
-        <form action="" method="post">
+        <form action="" method="post" class="form-horizontal">
             {{ form.hidden_tag() }}
             <p>
                 {{ form.username.label }}<br />
-                {{ form.username(size=32) }}<br />
-
+                {{ form.username(size=32, autofocus=true) }}<br />
                 <!-- Display errors -->
                 {% for error in form.username.errors %}
                     <span style="color: red;">{{ error }}</span>

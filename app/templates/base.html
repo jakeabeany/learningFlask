@@ -15,8 +15,10 @@
 
 {% block styles %}
     {{ super() }}
+
+    <link rel="stylesheet" href="https://bootswatch.com/3/readable/bootstrap.min.css">
     <link rel="stylesheet"
-      href="{{url_for('.static', filename='styling.css')}}">
+          href="{{url_for('.static', filename='styling.css')}}">
 {% endblock %}
 
 {% block navbar %}
@@ -83,4 +85,3 @@
     </div>
 {% endblock %}
 
-{% block content %}{% endblock %}

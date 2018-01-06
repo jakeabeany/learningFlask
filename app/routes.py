@@ -9,11 +9,10 @@ from werkzeug.urls import url_parse
 @app.route('/')
 @app.route('/index')
 def index():
+    # TODO: find a better way of getting the photos
     # get id's of photos to be displayed in carousel
     carouselphotos = CarouselPhoto.query.all()
-
     photos = []
-
     for photo in carouselphotos:
         photos.append(Photo.query.get(photo.photo_id))
 
@@ -83,7 +82,7 @@ def register():
         db.session.add(newuser)
         db.session.commit()
 
-        flash("Registration successful, you may now login.")
+        flash("Registration successful, you may now login.", "alert-success")
 
         return redirect(url_for("login"))
 
@@ -93,11 +92,11 @@ def register():
 @app.route('/adminhome')
 def adminhome():
     if not current_user.is_authenticated:
-        flash("You may not access this section")
+        flash("You may not access this section", "alert-danger")
         return redirect(url_for("index"))
 
     if not current_user.is_admin:
-        flash("You may not access this section")
+        flash("You may not access this section", "alert-danger")
         return redirect(url_for("index"))
 
     return render_template("adminhome.html", title="Admin Dashboard")

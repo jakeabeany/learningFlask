@@ -4,5 +4,50 @@
     <div class="container">
         <h1>Admin Homepage</h1>
 
-    </div>
+        <div class="row">
+            <!-- Admin Nav Menu -->
+            <div id="adminNav" class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h2 class="panel-title" style="text-align: center;">Admin Tools</h2>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item active"><a data-toggle="tab" href="#carousel">Manage Carousel
+                                Photos</a></li>
+                            <li class="list-group-item"><a data-toggle="tab" href="#other">Other</a></li>
+                            <li class="list-group-item"><a data-toggle="tab" href="#">Link 3</a></li>
+                            <li class="list-group-item"><a data-toggle="tab" href="#">Link 4</a></li>
+                            <li class="list-group-item"><a data-toggle="tab" href="#">Link 5</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Nav Content || Stored in tab-content to allow for dynamic page content. -->
+            <div class="tab-content">
+                <div class="tab-pane active col-md-8" id="carousel">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 class="panel-title" style="text-align: center;">Manage Carousel Photos</h2>
+                        </div>
+                        <div class="panel-body">
+                            caoursel photos m8
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane col-md-8" id="other">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 class="panel-title" style="text-align: center;">Other</h2>
+                        </div>
+                        <div class="panel-body">
+                            oi oi
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- container -->
 {% endblock %}
