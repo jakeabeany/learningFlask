@@ -18,7 +18,21 @@
 
     <link rel="stylesheet" href="https://bootswatch.com/3/readable/bootstrap.min.css">
     <link rel="stylesheet"
-          href="{{url_for('.static', filename='styling.css')}}">
+          href="{{ url_for('.static', filename='styling.css') }}">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    </script>
+    {{ super() }}
 {% endblock %}
 
 {% block navbar %}
@@ -67,7 +81,8 @@
                     <ul class="nav navbar-nav navbar-right" style="margin-right: 10px;">
                         {% if not current_user.is_authenticated %}
                             <li {% if request.path == url_for("login") %} class="active"{% endif %}>
-                                <a {% if request.path == url_for("login") %} class="active"{% endif %}href="{{ url_for("login") }}">Log in</a>
+                                <a {% if request.path == url_for("login") %}
+                                    class="active"{% endif %}href="{{ url_for("login") }}">Log in</a>
                             </li>
                         {% else %}
                             <li>
@@ -77,7 +92,9 @@
                     </ul>
 
                     {% if current_user.is_authenticated %}
-                        <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">{{ current_user.username.title() }}</a></p>
+                        <p class="navbar-text navbar-right">Signed in as <a href="#"
+                                                                            class="navbar-link">{{ current_user.username.title() }}</a>
+                        </p>
                     {% endif %}
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container -->

@@ -1,22 +1,30 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, AvailabilityForm
 from app.models import User, CarouselPhoto, Photo
 from werkzeug.urls import url_parse
 
 #@login_required
 @app.route('/')
-@app.route('/index')
+@app.route('/index', methods=["GET", "POST"])
 def index():
-    # TODO: find a better way of getting the photos
+    # TODO: find a better way of doing this
     # get id's of photos to be displayed in carousel
     carouselphotos = CarouselPhoto.query.all()
     photos = []
     for photo in carouselphotos:
         photos.append(Photo.query.get(photo.photo_id))
+    startingPhotoID = photos[1].id
 
-    return render_template('index.html', title="Homepage", photos=photos)
+
+    availabilityForm = AvailabilityForm()
+
+    if availabilityForm.validate_on_submit():
+        flash("Availability form submitted", "alert-info")
+        return redirect(url_for("index"))
+
+    return render_template('index.html', title="Homepage", photos=photos, startingPhoto=startingPhotoID, availabilityForm=availabilityForm)
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -33,7 +41,7 @@ def login():
 
         # validate username and password, redirect to login if invalid
         if user is None or not user.check_password(form.password.data):
-            flash("Invalid username or password.", "info")
+            flash("Invalid username or password.", "alert-danger")
             return redirect(url_for("login"))
 
         # valid credentials, login user

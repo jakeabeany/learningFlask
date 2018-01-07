@@ -7,3 +7,13 @@
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
     background-color: #ecf0f1;
 }
+
+.carousel-inner{
+    margin-bottom: 15px;
+}
+
+.panel-default > .panel-heading {
+  color: #333;
+  background-color: #e7e7e7;
+  border-color: #ddd;
+}
