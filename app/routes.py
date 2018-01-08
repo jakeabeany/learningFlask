@@ -98,6 +98,7 @@ def register():
 
 @app.route('/adminhome')
 def adminhome():
+    # Redirect unauthorized used to homepage
     if not current_user.is_authenticated:
         flash("You may not access this section", "alert-danger")
         return redirect(url_for("index"))
@@ -111,6 +112,8 @@ def adminhome():
     photos = []
     for photo in carouselphotos:
         photos.append(Photo.query.get(photo.photo_id))
+
+
 
     return render_template("adminhome.html", title="Admin Dashboard", photos=photos, numphotos=len(photos))
 
