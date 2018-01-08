@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+
+
 {% block content %}
     <div class="container">
         <h1>Admin Homepage</h1>
@@ -64,8 +66,8 @@
                                                     <li><a href="#">Swap photo</a></li>
                                                     <li><a href="#">Remove photo</a></li>
                                                     <li class="divider"></li>
-                                                    <li><a href="#{{ photo.id }}" data-toggle="modal" data-target="#captioneditor">Edit main caption</a></li>
-                                                    <li><a href="#{{ photo.id }}" data-toggle="modal" data-target="#captioneditor">Edit sub caption</a></li>
+                                                    <li><a href="#" data-toggle="modal" data-target="#captioneditor" datawhich="{{ photo.id }}">Edit main caption</a></li>
+                                                    <li><a href="#" data-toggle="modal" data-target="#captioneditor" >Edit sub caption</a></li>
                                                 </ul>
                                             </div>
 

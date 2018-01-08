@@ -20,9 +20,8 @@ def index():
 
     availabilityForm = AvailabilityForm()
 
-    if availabilityForm.validate_on_submit():
+    if availabilityForm.is_submitted():
         flash("Availability form submitted", "alert-info")
-        return redirect(url_for("index"))
 
     return render_template('index.html', title="Homepage", photos=photos, startingPhoto=startingPhotoID, availabilityForm=availabilityForm)
 
