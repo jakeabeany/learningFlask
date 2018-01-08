@@ -6,7 +6,7 @@ from app.models import User, CarouselPhoto, Photo
 from werkzeug.urls import url_parse
 
 #@login_required
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 @app.route('/index', methods=["GET", "POST"])
 def index():
     # TODO: find a better way of doing this
