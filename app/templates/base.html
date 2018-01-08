@@ -19,21 +19,8 @@
     <link rel="stylesheet" href="https://bootswatch.com/3/readable/bootstrap.min.css">
     <link rel="stylesheet"
           href="{{ url_for('.static', filename='styling.css') }}">
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
 {% endblock %}
 
-{% block scripts %}
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $(function () {
-            $("#datepicker").datepicker();
-        });
-    </script>
-    {{ super() }}
-{% endblock %}
 
 {% block navbar %}
     <div class="container" style="margin-top: 10px">
@@ -83,6 +70,10 @@
                             <li {% if request.path == url_for("login") %} class="active"{% endif %}>
                                 <a {% if request.path == url_for("login") %}
                                     class="active"{% endif %}href="{{ url_for("login") }}">Log in</a>
+                            </li>
+                            <li {% if request.path == url_for("register") %} class="active"{% endif %}>
+                                <a {% if request.path == url_for("register") %}
+                                    class="active"{% endif %}href="{{ url_for("register") }}">Register</a>
                             </li>
                         {% else %}
                             <li class="dropdown">

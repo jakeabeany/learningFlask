@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
+from wtforms.fields.html5 import DateField
 from app.models import User
 
 
@@ -34,5 +35,5 @@ class RegistrationForm(FlaskForm):
 
 
 class AvailabilityForm(FlaskForm):
-    dt = DateField("Pick a Date:", format='%d-%m-%y')
+    dt = DateField("Pick a Date:", format='%Y-%m-%d')
     submit = SubmitField("Search")
