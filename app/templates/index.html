@@ -14,15 +14,9 @@
             {% endif %}
         {% endwith %}
 
-        {% if current_user.is_authenticated %}
-            <h1>Welcome to Holtwood Leisure, {{ current_user.username.title() }}!</h1>
-        {% else %}
-            <h1>Welcome to Holtwood Leisure!</h1>
-        {% endif %}
-
-
         <!-- start of carousel -->
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"
+             style="width: 90%; margin: 0 auto;">
             <!-- Indicators -->
             <ol class="carousel-indicators">
                 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -54,6 +48,17 @@
                 <span class="sr-only">Next</span>
             </a>
         </div><!-- end of carousel -->
+
+        <!-- start of main panel -->
+        <div class="page-header">
+            <!-- welcome message -->
+            {% if current_user.is_authenticated %}
+                <h1>Welcome to Holtwood Leisure, {{ current_user.username.title() }}!</h1>
+            {% else %}
+                <h1>Welcome to Holtwood Leisure!</h1>
+            {% endif %}
+        </div>
+
 
         <!-- start of left panel -->
         <div class="col-md-6">

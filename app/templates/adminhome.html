@@ -4,11 +4,23 @@
 
 {% block content %}
     <div class="container">
+        <!-- Display flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-dismissible {{ category }}">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>{{ message }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <h1>Admin Homepage</h1>
 
         <div class="row">
             <!-- Admin Nav Menu -->
-            <div id="adminNav" class="col-md-4">
+            <div id="adminNav" class="col-md-3">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h2 class="panel-title" style="text-align: center;">Admin Tools</h2>
@@ -38,7 +50,7 @@
             <!-- Admin Nav Content || Stored in tab-content to allow for dynamic page content. -->
             <div class="tab-content">
                 <!-- Manage Carousel Photos -->
-                <div class="tab-pane active col-md-8" id="carousel">
+                <div class="tab-pane active col-md-9" id="carousel">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h2 class="panel-title" style="text-align: center;">Manage Carousel Photos</h2>
@@ -63,11 +75,14 @@
                                                 <a href="#" class="btn btn-default dropdown-toggle"
                                                    data-toggle="dropdown"><span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="#">Swap photo</a></li>
-                                                    <li><a href="#">Remove photo</a></li>
+                                                    <li><a href="#">Remove from carousel</a></li>
                                                     <li class="divider"></li>
-                                                    <li><a href="#" data-toggle="modal" data-target="#cap_id{{ photo.id }}">Edit main caption</a></li>
-                                                    <li><a href="#" data-toggle="modal" data-target="#subcap_id{{ photo.id }}">Edit sub caption</a></li>
+                                                    <li><a href="#" data-toggle="modal"
+                                                           data-target="#cap_id{{ photo.id }}">Edit main caption</a>
+                                                    </li>
+                                                    <li><a href="#" data-toggle="modal"
+                                                           data-target="#subcap_id{{ photo.id }}">Edit sub caption</a>
+                                                    </li>
                                                 </ul>
                                             </div>
 
@@ -82,7 +97,8 @@
                                                             <h4 class="modal-title">Modal title</h4>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <textarea class="form-control" rows="3" id="textArea" style="width: 100%; height: 101px;">{{ photo.main_caption }}</textarea>
+                                                            <textarea class="form-control" rows="3" id="textArea"
+                                                                      style="width: 100%; height: 101px;">{{ photo.main_caption }}</textarea>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default"
@@ -105,7 +121,8 @@
                                                             <h4 class="modal-title">Modal title</h4>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <textarea class="form-control" rows="3" id="textArea" style="width: 100%; height: 101px;">{{ photo.sub_caption }}</textarea>
+                                                            <textarea class="form-control" rows="3" id="textArea"
+                                                                      style="width: 100%; height: 101px;">{{ photo.sub_caption }}</textarea>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default"

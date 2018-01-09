@@ -5,6 +5,7 @@ from app.forms import LoginForm, RegistrationForm, AvailabilityForm
 from app.models import User, CarouselPhoto, Photo
 from werkzeug.urls import url_parse
 
+
 #@login_required
 @app.route('/', methods=["GET", "POST"])
 @app.route('/index', methods=["GET", "POST"])
@@ -96,7 +97,7 @@ def register():
     return render_template("register.html", title="Register", form=form)
 
 
-@app.route('/adminhome')
+@app.route('/adminhome', methods=["GET", "POST"])
 def adminhome():
     # Redirect unauthorized used to homepage
     if not current_user.is_authenticated:
@@ -113,9 +114,8 @@ def adminhome():
     for photo in carouselphotos:
         photos.append(Photo.query.get(photo.photo_id))
 
-
-
-    return render_template("adminhome.html", title="Admin Dashboard", photos=photos, numphotos=len(photos))
+    return render_template("adminhome.html", title="Admin Dashboard", photos=photos, numphotos=len(photos), \
+                           )
 
 
 @app.route('/bookings')
@@ -128,9 +128,9 @@ def offers():
     return render_template("offers.html", title="Offers")
 
 
-@app.route('/whatwedo')
-def whatwedo():
-    return render_template("whatwedo.html", title="What We Do")
+@app.route('/gallery')
+def gallery():
+    return render_template("gallery.html", title="Gallery")
 
 
 @app.route('/contact')

@@ -80,10 +80,6 @@ class CarouselPhoto(db.Model):
         return "<Photo {}>".format(self.photo_id)
 
 
-
-
-
-
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
