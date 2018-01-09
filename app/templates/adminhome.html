@@ -99,15 +99,15 @@
                                                         <!-- Main Caption form -->
                                                         <form action="" method="post" class="form-horizontal">
                                                             <div class="modal-body">
-                                                                {{ form.hidden_tag() }}
-                                                                {{ form.caption(class_="adminpage-textareas") }}
-                                                                {{ form.whichPic(value=photo.id, hidden=True) }}
+                                                                {{ maincapform.hidden_tag() }}
+                                                                {{ maincapform.caption(class_="adminpage-textareas", placeholder="Enter new caption here...") }}
+                                                                {{ maincapform.whichPic(value=photo.id, hidden=True) }}
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-default"
                                                                         data-dismiss="modal">Close
                                                                 </button>
-                                                                {{ form.submit(class_="btn btn-primary") }}
+                                                                {{ maincapform.submit(class_="btn btn-primary") }}
                                                             </div>
                                                         </form>
                                                     </div>
@@ -124,17 +124,20 @@
                                                             </button>
                                                             <h4 class="modal-title">Sub Caption Editor</h4>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            <textarea class="form-control" rows="3" id="textArea"
-                                                                      style="width: 100%; height: 101px;">{{ photo.sub_caption }}</textarea>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default"
-                                                                    data-dismiss="modal">Close
-                                                            </button>
-                                                            <button type="button" class="btn btn-primary">Save changes
-                                                            </button>
-                                                        </div>
+                                                        <!-- Main Caption form -->
+                                                        <form action="" method="post" class="form-horizontal">
+                                                            <div class="modal-body">
+                                                                {{ subcapform.hidden_tag() }}
+                                                                {{ subcapform.caption(class_="adminpage-textareas", placeholder="Enter new caption here...") }}
+                                                                {{ subcapform.whichPic(value=photo.id, hidden=True) }}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+                                                                {{ subcapform.submit(class_="btn btn-primary") }}
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>

@@ -43,3 +43,9 @@ class MainCaptionForm(FlaskForm):
     caption = TextAreaField("Caption")
     whichPic = StringField("Photo ID")
     submit = SubmitField("Update")
+
+
+class SubCaptionForm(FlaskForm):
+    caption = TextAreaField("Caption")
+    whichPic = StringField("Photo ID")
+    submit = SubmitField("Update")

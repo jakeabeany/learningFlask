@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, AvailabilityForm, MainCaptionForm
+from app.forms import LoginForm, RegistrationForm, AvailabilityForm, MainCaptionForm, SubCaptionForm
 from app.models import User, CarouselPhoto, Photo
 from werkzeug.urls import url_parse
 
@@ -114,7 +114,8 @@ def adminhome():
     for photo in carouselphotos:
         photos.append(Photo.query.get(photo.photo_id))
 
-    # Form to change Main Caption of images
+    # TODO: combine both the forms below - wtform is a struggle
+    # Main Caption form
     main_caption_form = MainCaptionForm();
     if main_caption_form.validate_on_submit():
         # Get the photo to change
@@ -132,8 +133,27 @@ def adminhome():
         flash("Caption changed successfully.", "alert-success")
         return redirect(url_for("adminhome"))
 
+    # Sub Caption form
+    sub_caption_form = SubCaptionForm();
+    if sub_caption_form.validate_on_submit():
+        # Get the photo to change
+        photo = Photo.query.get(sub_caption_form.whichPic.data)
+
+        # Deal with no photo found
+        if photo is None:
+            flash("Photo not found in database. Contact an admin with code P=" + sub_caption_form.whichPic.data,
+                  "alert-warning")
+            return redirect(url_for("adminhome"))
+
+        # Change main caption
+        photo.sub_caption = sub_caption_form.caption.data
+        db.session.commit()
+
+        flash("Caption changed successfully.", "alert-success")
+        return redirect(url_for("adminhome"))
+
     return render_template("adminhome.html", title="Admin Dashboard", photos=photos, numphotos=len(photos), \
-                           form=main_caption_form)
+                           maincapform=main_caption_form, subcapform=sub_caption_form)
 
 
 @app.route('/bookings')
