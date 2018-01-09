@@ -21,7 +21,7 @@
         <div class="row">
             <!-- Admin Nav Menu -->
             <div id="adminNav" class="col-md-3">
-                <div class="panel panel-primary">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h2 class="panel-title" style="text-align: center;">Admin Tools</h2>
                     </div>
@@ -51,7 +51,7 @@
             <div class="tab-content">
                 <!-- Manage Carousel Photos -->
                 <div class="tab-pane active col-md-9" id="carousel">
-                    <div class="panel panel-primary">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h2 class="panel-title" style="text-align: center;">Manage Carousel Photos</h2>
                         </div>
@@ -94,22 +94,26 @@
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                     aria-hidden="true">&times;
                                                             </button>
-                                                            <h4 class="modal-title">Modal title</h4>
+                                                            <h4 class="modal-title">Main Caption Editor</h4>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            <textarea class="form-control" rows="3" id="textArea"
-                                                                      style="width: 100%; height: 101px;">{{ photo.main_caption }}</textarea>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default"
-                                                                    data-dismiss="modal">Close
-                                                            </button>
-                                                            <button type="button" class="btn btn-primary">Save changes
-                                                            </button>
-                                                        </div>
+                                                        <!-- Main Caption form -->
+                                                        <form action="" method="post" class="form-horizontal">
+                                                            <div class="modal-body">
+                                                                {{ form.hidden_tag() }}
+                                                                {{ form.caption(class_="adminpage-textareas") }}
+                                                                {{ form.whichPic(value=photo.id, hidden=True) }}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+                                                                {{ form.submit(class_="btn btn-primary") }}
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <!-- Sub caption editor -->
                                             <div class="modal fade" id="subcap_id{{ photo.id }}">
                                                 <div class="modal-dialog">
@@ -118,7 +122,7 @@
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                     aria-hidden="true">&times;
                                                             </button>
-                                                            <h4 class="modal-title">Modal title</h4>
+                                                            <h4 class="modal-title">Sub Caption Editor</h4>
                                                         </div>
                                                         <div class="modal-body">
                                                             <textarea class="form-control" rows="3" id="textArea"
@@ -139,15 +143,13 @@
                                     </div> <!-- thumbnail -->
                                 </div> <!-- thumbnail columns -->
                             {% endfor %}
-
-
                         </div>
                     </div>
                 </div><!-- end of Manage Carousel Photos -->
 
                 <!-- Next tab TBA -->
                 <div class="tab-pane col-md-8" id="other">
-                    <div class="panel panel-primary">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h2 class="panel-title" style="text-align: center;">Other</h2>
                         </div>

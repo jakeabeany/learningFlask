@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, HiddenField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
 from wtforms.fields.html5 import DateField
 from app.models import User
@@ -37,3 +37,9 @@ class RegistrationForm(FlaskForm):
 class AvailabilityForm(FlaskForm):
     dt = DateField("Pick a Date:", format='%Y-%m-%d')
     submit = SubmitField("Search")
+
+
+class MainCaptionForm(FlaskForm):
+    caption = TextAreaField("Caption")
+    whichPic = StringField("Photo ID")
+    submit = SubmitField("Update")

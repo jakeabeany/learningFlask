@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, AvailabilityForm
+from app.forms import LoginForm, RegistrationForm, AvailabilityForm, MainCaptionForm
 from app.models import User, CarouselPhoto, Photo
 from werkzeug.urls import url_parse
 
@@ -114,8 +114,26 @@ def adminhome():
     for photo in carouselphotos:
         photos.append(Photo.query.get(photo.photo_id))
 
+    # Form to change Main Caption of images
+    main_caption_form = MainCaptionForm();
+    if main_caption_form.validate_on_submit():
+        # Get the photo to change
+        photo = Photo.query.get(main_caption_form.whichPic.data)
+
+        # Deal with no photo found
+        if photo is None:
+            flash("Photo not found in database. Contact an admin with code P=" + main_caption_form.whichPic.data, "alert-warning")
+            return redirect(url_for("adminhome"))
+
+        # Change main caption
+        photo.main_caption = main_caption_form.caption.data
+        db.session.commit()
+
+        flash("Caption changed successfully.", "alert-success")
+        return redirect(url_for("adminhome"))
+
     return render_template("adminhome.html", title="Admin Dashboard", photos=photos, numphotos=len(photos), \
-                           )
+                           form=main_caption_form)
 
 
 @app.route('/bookings')
